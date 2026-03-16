@@ -1,4 +1,4 @@
-import { Model, InferenceResponse } from 'dummyai-shared-types';
+import { Model, InferenceResponse, ModelStatus } from 'dummyai-shared-types';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
@@ -16,4 +16,7 @@ export async function runInference(modelId: string, input: Record<string, unknow
   return res.json();
 }
 
-// TODO: getModelStatus function needed
+export async function getModelStatus(modelId: string): Promise<ModelStatus> {
+  const res = await fetch(`${API_BASE}/models/${modelId}/status`);
+  return res.json();
+}
